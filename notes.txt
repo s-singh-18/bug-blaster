@@ -1,0 +1,250 @@
+# Bug Blaster Ticket Management System :-
+------------------------------------------
+- This react application's main logic is handled by
+  so called REDUCER.
+
+- We need a "state" for our form so that we can save the
+  values of our UI elements, input fields, dropdowns etc.
+
+
+- Each ticket that we create will consist of a title, 
+  a description and the priority value.
+
+  We'll have 3 priorities, low medium and high.
+
+- The default value for the priority is set to be 'low'.
+
+
+- We'll also create a function that clears the entire 
+  states.
+  i.e. Once we create a ticket by filling the input fields
+  and click on submit, we want to clear that form.
+
+
+- If we want to submit the form by clicking on the submit
+  button inside the form, in that moment we'll have an 
+  event triggered in HTML which is called "onSubmit".
+
+- Note:
+  The 'clearForm' function when executed clears all the
+  states, which will then automatically get reflected 
+  because the UI gets Re-rendered.
+
+
+- "e.preventDefault()" prevents the page to reload Once
+  we submit the form.
+
+- We take the "event (e)" from that 'onChange()' what 
+  triggered the event and then we take the 'target' 
+  which is the input field and we take the 'value' what 
+  we are writing down.
+
+
+- The <fieldset> tag in HTML is used to group related 
+  elements within a form. It provides a visual boundary 
+  around the grouped elements, often with a border and 
+  a caption. 
+  
+  The <legend> tag is typically used within the <fieldset>
+  to provide a title or caption for the grouped elements.
+
+- Inside the 'fieldset' tag, we'll add radio buttons.
+  We'll iterate (or) Map over our "priorityLabels" obj
+  to create 1 Radio Button for each of those entries.
+
+
+- In JavaScript, the "Object" keyword is used to create
+  and manipulate objects.
+  
+  Objects are collections of key-value pairs, where keys
+  are strings (or symbols) and values can be any type.
+
+  The Object keyword can also be used to work with object
+  methods, such as Object.keys(), Object.values(), 
+  Object.assign(), and more.
+
+- "Object.entries(object_name)" is a method in JavaScript 
+  that returns an array of a given object's own enumerable
+  string-keyed property [key, value] pairs.
+
+
+- Inside the "handleSubmit" function, when we click on the 
+  "Submit" button inside the form, we want to create a Ticket
+  basically.
+
+  So, we take the values and the states and then create a 
+  ticket object.
+
+  Afterwards, we'll setup the REDUCER to write down our actions
+  for our ticket state so that we can dispatch them.
+
+
+- After creating the 'ticket object', we can create REDUCER
+  which contains multiple actions like adding, updating, 
+  deleting tickets.
+
+- We'll use our 'ticketData' object to dispatch the action 
+  of a Reducer to add a new ticket.
+
+
+# Reducer :-
+-------------
+Reducer = Manages state in a centralized way
+
+- There's a clear separation between UI and State Logic.
+
+- The logic of "How this works" will be no longer inside the
+  Component but inside a specific reducer.
+
+- Component:
+  It describes "WHAT" should happen inside of our component.
+
+  Reducer:
+  It describes "HOW" its done.
+  It contains the logic.
+  It specifies how the state updates in response to actions.
+
+- Inside of "ticketReducer", we will create specific "actions"
+  that handle our state.
+
+  i.e.
+  Actions
+  • Add ticket
+  • Delete ticket
+  • Update ticket
+
+- We then take this Reducer and put it into our app.js so that
+  we have the state information at the highest level.
+
+
+- Whenever we want to do some action (eg: adding/deleting etc),
+  we will "DISPATCH an Action" from our Component on the 
+  Reducer which then contains the logic for the same.
+
+
+- The "action" contains 2 things:
+  1. type of action (what kind of action)
+  2. payload        (what's inside of that action)
+
+  => "Payload" is basically the information that the Reducer 
+     needs to successfully run that action to modify the state.
+
+
+- The Reducer is defined at the app.js level and inside there
+  we have created the "dispatch function".
+
+  We receive the "dispatch" function from the 'useReducer' hook.
+
+  We take that 'dispatch function' and we pass it (or) drill it
+  down to our components so that they can call this function 
+  of our Reducer.
+
+
+* Summary of Reducer :-
+------------------------
+-> Manages state in a centralized way.
+-> Separating logic from user actions.
+-> Dispatch actions from components (handled by Reducer).
+-> Information gets passed to the Reducer in the Payload.
+
+
+
+- In React, "reducers" are functions used to manage state 
+  changes in applications, especially within the context of 
+  the 'useReducer hook' (or) when using state management 
+  libraries like 'Redux'. 
+  
+- A reducer function takes 2 arguments: 
+  "current state" and an "action object"
+  
+  • It processes the action and "returns a new state".
+
+- The "useReducer hook" is used to manage the state. It returns 
+  the current state and a dispatch function that we can use 
+  to send actions to the reducer.
+
+  The main benefit of using a "reducer hook" in React is that
+  it centralizes state logic in one location and increases the 
+  predictability of state transitions.
+
+
+
+* Key Concepts:
+----------------
+  1) State: 
+     The current state of the application (or) component.
+
+  2) Action: 
+     An object that describes what happened and usually has 
+     a "type property" and an optional "payload".
+
+  3) Reducer Function: 
+     A pure function that takes the current state and an 
+     action, then returns a new state.
+
+
+
+* Benefits of Using Reducers:
+------------------------------
+-> Predictable State Management: 
+   Since reducers are pure functions, given the same state 
+   and action, they always produce the same result.
+
+-> Separation of Concerns: 
+   Reducing the state logic from the component logic makes 
+   the code easier to read and maintain.
+
+-> Scalability: 
+   Reducers are particularly useful for managing complex state 
+   logic and can easily scale as the application grows.
+
+- Reducers are a powerful pattern for handling state in React 
+  applications, making them a popular choice for complex 
+  state management needs.
+
+
+
+- Overall, the "component" only describes what the user is doing,
+  and the "reducer" describes how it's done!!!
+
+  The logic is in the reducer and the components are only firing
+  the events, so they are dispatching actions.
+
+
+
+- Inorder to "Edit" a ticket, we want that our state 
+  also saves information about 'which ticket it is 
+  currently editing'.
+
+- For the "initialState", we are using an Object and not
+  an Array so that we can extend it with new elements.
+
+- If we click on "Edit", then we want all of the ticket's
+  info. to be presented inside the form.
+
+
+- Inside our Reducer, we have an action of "Update" and
+  it simply receives the info. of how our ticket should
+  look like after the update.
+
+- But, we would also need an action inside the Reducer 
+  that would 'set the state' that it is in "edit mode"
+  and we want to edit this particular ticket.
+
+- So, we have to maintain specific state in our app:
+  Is in editing mode (or) is not in editing mode?
+
+
+- When we call the action "SET_EDITING_TICKET", we 
+  submit the info. about which ticket are we editing.
+
+- And when we call the action "CLEAR_EDITING_TICKET",
+  we remove that info. and say we are not editing any 
+  ticket anymore.
+
+
+
+- Since we want to load the initial value when we edit 
+  the ticket, therefore we will use an "Effect" and 
+  this effect will get called once our app notices:
+  ohh, I now have an editing ticket!
